@@ -16,3 +16,5 @@ To run the analysis, first download this repository.
 The analysis is run with the notebooks in the /code/notebooks directory. To perform the analysis and save the results as a source data file, run the demag.ipynb notebook followed by the description_of_analysis.ipynb notebook. The resultant source data file is saved as source_data.xlsx in the /data directory. The notebooks can be run by entering jupyter notebook at a terminal, then navigating to the notebook, then clicking Kernel -> Restart & Run All from the menu at the top of the notebook viewer.
 
 The analysis runs in about 5 minutes.
+
+The expected source data file and notebook outputs are saved in the /expected-output directory.
