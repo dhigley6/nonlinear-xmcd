@@ -160,8 +160,3 @@ def get_trans_spec(phot, spec, fit_coef):
     transformed_spec = spec*fit_coef['spec_scale']-fit_coef['spec_shift']
     transformed_spec = transformed_spec-fit_coef['spec_slope']*transformed_phot
     return transformed_phot, transformed_spec
-
-#def get_xas_scan(data, bins=100, equal_norms=True):
-#    if equal_norms is True:
-#        xas_scan = norm_data.norm_trace_equal_norms(data['delay'], data['andor'], data['norm'], bins=bins)
-#    else:

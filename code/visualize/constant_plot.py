@@ -26,7 +26,6 @@ FERMI_ENERGY = 777.5
 def constant_plot2():
     """Plot with constant absorbed fluence spectra
     """
-
     f, axs = plt.subplots(2, 1, sharex=True, sharey=False, figsize=(3.37, 3.5), gridspec_kw={'height_ratios': [1, 1]})
     spec = ABSORBED_SPECS[-1]
     axs[0].plot(ALS_SPEC['xas']['phot'], (ALS_SPEC['xas']['spec']), linestyle=SD, color='b')

@@ -9,7 +9,6 @@ import os
 from scipy.stats import percentileofscore
 from scipy.stats import scoreatpercentile
 
-import abs_ana
 import run_cals
 
 #### Define runs containing different fluence data sets
