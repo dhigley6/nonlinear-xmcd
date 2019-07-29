@@ -1,0 +1,598 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{demag}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \section{Simulations of optically-induced
+demagnetization}\label{simulations-of-optically-induced-demagnetization}
+
+Here, we simulate the optically-induced demagnetization within the
+microscopic three temperature model (M3TM) introduced by Koopmans and
+others. For simplicity, we ignore z-dependence.
+
+    The M3TM equations are given in (Koopmans 2010) as
+
+\begin{equation}
+C_e[T_e] = \gamma T_e
+\end{equation}\begin{equation}
+C_e\frac{dT_e}{dt} = \frac{\partial}{\partial z}\left(\kappa \frac{\partial}{\partial z}T_e\right)+g_{ep}[T_p-T_e]+P_{pump}
+\end{equation}\begin{equation}
+C_p\frac{dT_p}{dt} =g_{ep}[T_e-T_p]
+\end{equation}\begin{equation}
+\frac{dm}{dt} = Rm\frac{T_P}{T_C}\left[1-m\coth\left(\frac{mT_C}{T_e}\right)\right]
+\end{equation}
+
+    To simplify modelling, we neglect z-dependence, giving
+
+\begin{equation}
+C_e[T_e]\frac{dT_e}{dt} = g_{e-ph}[T_p-T_e]+P(t)
+\end{equation}\begin{equation}
+C_{ph}\frac{dT_{ph}}{dt} = g_{e-ph}[T_e-T_p]
+\end{equation}\begin{equation}
+\frac{dm}{dt} = Rm\frac{T_p}{T_C}\left[1-m\coth\left(\frac{mT_C}{T_e}\right)\right]
+\end{equation}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{c+c1}{\PYZsh{} Import standard python modules}
+        \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+        \PY{k+kn}{from} \PY{n+nn}{scipy} \PY{k}{import} \PY{n}{optimize}
+        
+        \PY{k+kn}{import} \PY{n+nn}{sys}
+        \PY{n}{sys}\PY{o}{.}\PY{n}{path}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{../}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{k+kn}{import} \PY{n+nn}{visualize}
+        \PY{n}{visualize}\PY{o}{.}\PY{n}{set\PYZus{}plot\PYZus{}params}\PY{o}{.}\PY{n}{init\PYZus{}paper\PYZus{}small}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/Users/dhigley/anaconda3/lib/python3.6/site-packages/h5py/\_\_init\_\_.py:36: FutureWarning: Conversion of the second argument of issubdtype from `float` to `np.floating` is deprecated. In future, it will be treated as `np.float64 == np.dtype(float).type`.
+  from .\_conv import register\_converters as \_register\_converters
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{c+c1}{\PYZsh{} Material constants, as taken from D. J. Higley\PYZsq{}s thesis, p. 59}
+        \PY{n}{Co\PYZus{}constants} \PY{o}{=} \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Cp}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mf}{2.07}\PY{o}{*}\PY{l+m+mf}{1E6}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{gamma}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{665}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{g\PYZus{}ep}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{405}\PY{o}{*}\PY{l+m+mf}{1E6}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{TC}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{1388}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{R}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mf}{25.3}\PY{o}{*}\PY{l+m+mf}{1E12}\PY{p}{\PYZcb{}}
+        \PY{n}{Co\PYZus{}Pt\PYZus{}constants} \PY{o}{=} \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Cp}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mf}{2.98}\PY{o}{*}\PY{l+m+mf}{1E6}\PY{p}{,}
+                           \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{gamma}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{720}\PY{p}{,}
+                           \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{g\PYZus{}ep}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{264}\PY{o}{*}\PY{l+m+mf}{1E6}\PY{p}{,}
+                           \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{TC}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{550}\PY{p}{,}
+                           \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{R}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mf}{9.396}\PY{o}{*}\PY{l+m+mf}{1E12}\PY{p}{\PYZcb{}}
+        
+        \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}Units:}
+        \PY{l+s+sd}{Cp: Jm\PYZca{}(\PYZhy{}3)K\PYZca{}(\PYZhy{}1)}
+        \PY{l+s+sd}{gamma: Jm\PYZca{}(\PYZhy{}3)K\PYZca{}(\PYZhy{}2)}
+        \PY{l+s+sd}{g\PYZus{}ep: J(sm\PYZca{}3K)\PYZca{}(\PYZhy{}1)}
+        \PY{l+s+sd}{TC: K}
+        \PY{l+s+sd}{R: s\PYZca{}(\PYZhy{}1)}
+        \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+        
+        \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}Definitions:}
+        \PY{l+s+sd}{Cp: lattice heat capacity}
+        \PY{l+s+sd}{gamma: Ce = gamma*Te with Ce being the electronic heat capacity, and Te the electronic temperature}
+        \PY{l+s+sd}{g\PYZus{}ep: electron\PYZhy{}phonon coupling constant}
+        \PY{l+s+sd}{TC: Curie temperature}
+        \PY{l+s+sd}{R: material\PYZhy{}specific scaling factor of demagnetization rate}
+        \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+        
+        \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}Conversion from J/m\PYZca{}3 to eV/atom:}
+        \PY{l+s+sd}{x [J/m\PYZca{}3] = (x [eV/atom])(rho [atoms/nm\PYZca{}3])(10\PYZca{}27 [nm\PYZca{}3/m\PYZca{}3])(1.602*10\PYZca{}(\PYZhy{}19) [J/eV])}
+        \PY{l+s+sd}{or}
+        \PY{l+s+sd}{x [J/m\PYZca{}3] = (x [eV/atom])(rho [atoms/nm\PYZca{}3])(1.602*10\PYZca{}(8))}
+        \PY{l+s+sd}{where rho is the atomic density in atoms/nm\PYZca{}3}
+        
+        \PY{l+s+sd}{Cobalt has 90.5 atoms/nm\PYZca{}3}
+        \PY{l+s+sd}{\PYZhy{}\PYZgt{} 260 meV/atom = 3.769 GJ/m\PYZca{}3}
+        \PY{l+s+sd}{, 278.6 meV/atom = 4.039 GJ/m\PYZca{}3}
+        
+        \PY{l+s+sd}{Co/Pt has 77.4 atoms/nm\PYZca{}3}
+        \PY{l+s+sd}{\PYZhy{}\PYZgt{} 260 meV/atom = 3.224 GJ/m\PYZca{}3}
+        \PY{l+s+sd}{, 278.6 meV/atom = 3.454 GJ/m\PYZca{}3}
+        \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}2}]:} 'Conversion from J/m\^{}3 to eV/atom:\textbackslash{}nx [J/m\^{}3] = (x [eV/atom])(rho [atoms/nm\^{}3])(10\^{}27 [nm\^{}3/m\^{}3])(1.602*10\^{}(-19) [J/eV])\textbackslash{}nor\textbackslash{}nx [J/m\^{}3] = (x [eV/atom])(rho [atoms/nm\^{}3])(1.602*10\^{}(8))\textbackslash{}nwhere rho is the atomic density in atoms/nm\^{}3\textbackslash{}n\textbackslash{}nCobalt has 90.5 atoms/nm\^{}3\textbackslash{}n-> 260 meV/atom = 3.769 GJ/m\^{}3\textbackslash{}n, 278.6 meV/atom = 4.039 GJ/m\^{}3\textbackslash{}n\textbackslash{}nCo/Pt has 77.4 atoms/nm\^{}3\textbackslash{}n-> 260 meV/atom = 3.224 GJ/m\^{}3\textbackslash{}n, 278.6 meV/atom = 3.454 GJ/m\^{}3\textbackslash{}n'
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{k}{class} \PY{n+nc}{M3TM\PYZus{}Sample}\PY{p}{:}
+            \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}Numerically calculate sample properties within \PYZsq{}microscopic 3 temperature model\PYZsq{} (M3TM)}
+        \PY{l+s+sd}{    Neglects z\PYZhy{}dependence for simplicity.}
+        \PY{l+s+sd}{    Uses Euler method to solve the first\PYZhy{}order differential equations given}
+        \PY{l+s+sd}{    by the microscopic three temperature model.}
+        \PY{l+s+sd}{    \PYZdq{}\PYZdq{}\PYZdq{}}
+            
+            \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}init\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{material\PYZus{}constants}\PY{p}{,} \PY{n}{Te}\PY{p}{,} \PY{n}{Tph}\PY{p}{,} \PY{n}{t0}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{:}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{material\PYZus{}constants} \PY{o}{=} \PY{n}{material\PYZus{}constants}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{Te} \PY{o}{=} \PY{n}{Te}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{Tph} \PY{o}{=} \PY{n}{Tph}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{m} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{\PYZus{}calc\PYZus{}initial\PYZus{}m}\PY{p}{(}\PY{p}{)}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{t} \PY{o}{=} \PY{n}{t0}
+                \PY{c+c1}{\PYZsh{} history will keep track of the previous states of the sample}
+                \PY{c+c1}{\PYZsh{} so that they can be plotted and such.}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{history} \PY{o}{=} \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{t}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{p}{[}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{t}\PY{p}{]}\PY{p}{,}
+                                \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Te}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{p}{[}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{Te}\PY{p}{]}\PY{p}{,}
+                                \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Tph}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{p}{[}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{Tph}\PY{p}{]}\PY{p}{,}
+                                \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{m}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{p}{[}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{m}\PY{p}{]}\PY{p}{\PYZcb{}}
+                
+            \PY{k}{def} \PY{n+nf}{\PYZus{}calc\PYZus{}initial\PYZus{}m}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}
+                \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}Calculate the initial value of the magnetization (m).}
+        \PY{l+s+sd}{        Finds m as the value when dm/dt = 0 for the initial conditions\PYZdq{}\PYZdq{}\PYZdq{}}
+                
+                \PY{k}{def} \PY{n+nf}{set\PYZus{}to\PYZus{}zero}\PY{p}{(}\PY{n}{m}\PY{p}{)}\PY{p}{:}
+                    \PY{k}{return} \PY{l+m+mi}{1}\PY{o}{\PYZhy{}}\PY{n}{m}\PY{o}{*}\PY{p}{(}\PY{l+m+mi}{1}\PY{o}{/}\PY{n}{np}\PY{o}{.}\PY{n}{tanh}\PY{p}{(}\PY{n}{m}\PY{o}{*}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{material\PYZus{}constants}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{TC}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{/}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{Te}\PY{p}{)}\PY{p}{)}
+                
+                \PY{n}{sol} \PY{o}{=} \PY{n}{optimize}\PY{o}{.}\PY{n}{root}\PY{p}{(}\PY{n}{set\PYZus{}to\PYZus{}zero}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+                \PY{k}{return} \PY{n}{sol}\PY{o}{.}\PY{n}{x}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+                
+            \PY{k}{def} \PY{n+nf}{step\PYZus{}t}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{delta\PYZus{}t}\PY{p}{,} \PY{n}{abs\PYZus{}energy\PYZus{}density}\PY{p}{)}\PY{p}{:}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{t} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{t}\PY{o}{+}\PY{n}{delta\PYZus{}t}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{\PYZus{}update\PYZus{}Te}\PY{p}{(}\PY{n}{delta\PYZus{}t}\PY{p}{,} \PY{n}{abs\PYZus{}energy\PYZus{}density}\PY{p}{)}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{\PYZus{}update\PYZus{}Tph}\PY{p}{(}\PY{n}{delta\PYZus{}t}\PY{p}{)}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{\PYZus{}update\PYZus{}m}\PY{p}{(}\PY{n}{delta\PYZus{}t}\PY{p}{)}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{\PYZus{}update\PYZus{}history}\PY{p}{(}\PY{p}{)}
+            
+        
+            \PY{k}{def} \PY{n+nf}{\PYZus{}update\PYZus{}Te}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{delta\PYZus{}t}\PY{p}{,} \PY{n}{abs\PYZus{}energy\PYZus{}density}\PY{p}{)}\PY{p}{:}
+                \PY{n}{mc} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{material\PYZus{}constants}
+                \PY{n}{Ce} \PY{o}{=} \PY{n}{mc}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{gamma}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{*}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{Te}
+                \PY{n}{dTe\PYZus{}dt} \PY{o}{=} \PY{p}{(}\PY{n}{mc}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{g\PYZus{}ep}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{*}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{Tph}\PY{o}{\PYZhy{}}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{Te}\PY{p}{)}\PY{o}{+}\PY{n}{abs\PYZus{}energy\PYZus{}density}\PY{p}{)}\PY{o}{/}\PY{n}{Ce}
+                \PY{n}{delta\PYZus{}Te} \PY{o}{=} \PY{n}{dTe\PYZus{}dt}\PY{o}{*}\PY{n}{delta\PYZus{}t}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{Te} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{Te}\PY{o}{+}\PY{n}{delta\PYZus{}Te}
+        
+            \PY{k}{def} \PY{n+nf}{\PYZus{}update\PYZus{}Tph}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{delta\PYZus{}t}\PY{p}{)}\PY{p}{:}
+                \PY{n}{mc} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{material\PYZus{}constants}
+                \PY{n}{dTph\PYZus{}dt} \PY{o}{=} \PY{p}{(}\PY{n}{mc}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{g\PYZus{}ep}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{*}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{Te}\PY{o}{\PYZhy{}}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{Tph}\PY{p}{)}\PY{p}{)}\PY{o}{/}\PY{n}{mc}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Cp}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+                \PY{n}{delta\PYZus{}Tph} \PY{o}{=} \PY{n}{dTph\PYZus{}dt}\PY{o}{*}\PY{n}{delta\PYZus{}t}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{Tph} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{Tph}\PY{o}{+}\PY{n}{delta\PYZus{}Tph}
+        
+            \PY{k}{def} \PY{n+nf}{\PYZus{}update\PYZus{}m}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{delta\PYZus{}t}\PY{p}{)}\PY{p}{:}
+                \PY{n}{mc} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{material\PYZus{}constants}
+                \PY{n}{factor} \PY{o}{=} \PY{l+m+mi}{1}\PY{o}{\PYZhy{}}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{m}\PY{o}{*}\PY{p}{(}\PY{l+m+mi}{1}\PY{o}{/}\PY{n}{np}\PY{o}{.}\PY{n}{tanh}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{m}\PY{o}{*}\PY{n}{mc}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{TC}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{/}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{Te}\PY{p}{)}\PY{p}{)}
+                \PY{n}{dm\PYZus{}dt} \PY{o}{=} \PY{n}{mc}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{R}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{*}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{m}\PY{o}{*}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{Tph}\PY{o}{/}\PY{n}{mc}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{TC}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{o}{*}\PY{n}{factor}
+                \PY{n}{delta\PYZus{}m} \PY{o}{=} \PY{n}{dm\PYZus{}dt}\PY{o}{*}\PY{n}{delta\PYZus{}t}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{m} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{m}\PY{o}{+}\PY{n}{delta\PYZus{}m}
+            
+            \PY{k}{def} \PY{n+nf}{\PYZus{}update\PYZus{}history}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{history}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{t}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{t}\PY{p}{)}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{history}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Te}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{Te}\PY{p}{)}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{history}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Tph}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{Tph}\PY{p}{)}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{history}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{m}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{m}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{k}{def} \PY{n+nf}{make\PYZus{}pulse}\PY{p}{(}\PY{n}{times}\PY{p}{,} \PY{n}{integrated\PYZus{}strength}\PY{p}{,} \PY{n}{fwhm}\PY{o}{=}\PY{l+m+mf}{10E\PYZhy{}15}\PY{p}{)}\PY{p}{:}
+            \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}Return a Gaussian pulse with the specified integrated strength and fwhm\PYZdq{}\PYZdq{}\PYZdq{}}
+            \PY{n}{sigma} \PY{o}{=} \PY{n}{fwhm}\PY{o}{/}\PY{p}{(}\PY{l+m+mi}{2}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{l+m+mi}{2}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{log}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+            \PY{n}{gauss} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{exp}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{p}{(}\PY{n}{times}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{)}\PY{o}{/}\PY{p}{(}\PY{l+m+mi}{2}\PY{o}{*}\PY{p}{(}\PY{n}{sigma}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}
+            \PY{n}{gauss\PYZus{}integral} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{trapz}\PY{p}{(}\PY{n}{gauss}\PY{p}{,} \PY{n}{times}\PY{p}{)}
+            \PY{n}{pulse} \PY{o}{=} \PY{n}{gauss}\PY{o}{*}\PY{n}{integrated\PYZus{}strength}\PY{o}{/}\PY{n}{gauss\PYZus{}integral}
+            \PY{k}{return} \PY{n}{pulse}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{c+c1}{\PYZsh{} Run simulations for Co and Co\PYZus{}Pt}
+        \PY{n}{times} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mf}{100E\PYZhy{}15}\PY{p}{,} \PY{l+m+mf}{100E\PYZhy{}15}\PY{p}{,} \PY{l+m+mf}{1E5}\PY{p}{)}
+        \PY{n}{delta\PYZus{}t} \PY{o}{=} \PY{n}{times}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{\PYZhy{}}\PY{n}{times}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+        \PY{n}{Co\PYZus{}sample} \PY{o}{=} \PY{n}{M3TM\PYZus{}Sample}\PY{p}{(}\PY{n}{Co\PYZus{}constants}\PY{p}{,} \PY{l+m+mf}{273.15}\PY{p}{,} \PY{l+m+mf}{273.15}\PY{p}{,} \PY{n}{t0}\PY{o}{=}\PY{n}{times}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+        \PY{n}{Co\PYZus{}Pt\PYZus{}sample} \PY{o}{=} \PY{n}{M3TM\PYZus{}Sample}\PY{p}{(}\PY{n}{Co\PYZus{}Pt\PYZus{}constants}\PY{p}{,} \PY{l+m+mf}{273.15}\PY{p}{,} \PY{l+m+mf}{273.15}\PY{p}{,} \PY{n}{t0}\PY{o}{=}\PY{n}{times}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+        \PY{n}{total\PYZus{}abs\PYZus{}energy\PYZus{}density\PYZus{}Co} \PY{o}{=} \PY{l+m+mf}{4.039E9}  \PY{c+c1}{\PYZsh{} J/m\PYZca{}3}
+        \PY{n}{total\PYZus{}abs\PYZus{}energy\PYZus{}density\PYZus{}Co\PYZus{}pt} \PY{o}{=} \PY{l+m+mf}{3.454E9}  \PY{c+c1}{\PYZsh{} J/m\PYZca{}3}
+        \PY{n}{Co\PYZus{}pulse} \PY{o}{=} \PY{n}{make\PYZus{}pulse}\PY{p}{(}\PY{n}{times}\PY{p}{,} \PY{n}{total\PYZus{}abs\PYZus{}energy\PYZus{}density\PYZus{}Co}\PY{p}{,} \PY{n}{fwhm}\PY{o}{=}\PY{l+m+mf}{39E\PYZhy{}15}\PY{p}{)}
+        \PY{n}{Co\PYZus{}pt\PYZus{}pulse} \PY{o}{=} \PY{n}{make\PYZus{}pulse}\PY{p}{(}\PY{n}{times}\PY{p}{,} \PY{n}{total\PYZus{}abs\PYZus{}energy\PYZus{}density\PYZus{}Co\PYZus{}pt}\PY{p}{,} \PY{n}{fwhm}\PY{o}{=}\PY{l+m+mf}{39E\PYZhy{}15}\PY{p}{)}
+        \PY{k}{for} \PY{n}{ind}\PY{p}{,} \PY{n}{t} \PY{o+ow}{in} \PY{n+nb}{enumerate}\PY{p}{(}\PY{n}{times}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{:}\PY{p}{]}\PY{p}{)}\PY{p}{:}
+            \PY{n}{Co\PYZus{}sample}\PY{o}{.}\PY{n}{step\PYZus{}t}\PY{p}{(}\PY{n}{delta\PYZus{}t}\PY{p}{,} \PY{n}{Co\PYZus{}pulse}\PY{p}{[}\PY{n}{ind}\PY{p}{]}\PY{p}{)}
+            \PY{n}{Co\PYZus{}Pt\PYZus{}sample}\PY{o}{.}\PY{n}{step\PYZus{}t}\PY{p}{(}\PY{n}{delta\PYZus{}t}\PY{p}{,} \PY{n}{Co\PYZus{}pt\PYZus{}pulse}\PY{p}{[}\PY{n}{ind}\PY{p}{]}\PY{p}{)}    
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/Users/dhigley/anaconda3/lib/python3.6/site-packages/ipykernel\_launcher.py:2: DeprecationWarning: object of type <class 'float'> cannot be safely interpreted as an integer.
+  
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{k}{def} \PY{n+nf}{calc\PYZus{}integrated\PYZus{}pulse\PYZus{}magnetization}\PY{p}{(}\PY{n}{pulse}\PY{p}{,} \PY{n}{magnetization}\PY{p}{)}\PY{p}{:}
+            \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}Calculate the average magnetization that would be measured by the input pulse\PYZdq{}\PYZdq{}\PYZdq{}}
+            \PY{n}{measured} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{trapz}\PY{p}{(}\PY{n}{pulse}\PY{o}{*}\PY{n}{magnetization}\PY{p}{)}\PY{o}{/}\PY{n}{np}\PY{o}{.}\PY{n}{trapz}\PY{p}{(}\PY{n}{pulse}\PY{p}{)}
+            \PY{n}{measured} \PY{o}{=} \PY{n}{measured}\PY{o}{/}\PY{n}{magnetization}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}    \PY{c+c1}{\PYZsh{} normalize to starting value of magnetization}
+            \PY{k}{return} \PY{n}{measured}
+        
+        \PY{k}{def} \PY{n+nf}{calc\PYZus{}integrated\PYZus{}pulse\PYZus{}temperature}\PY{p}{(}\PY{n}{pulse}\PY{p}{,} \PY{n}{temperature}\PY{p}{)}\PY{p}{:}
+            \PY{n}{measured} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{trapz}\PY{p}{(}\PY{n}{pulse}\PY{o}{*}\PY{n}{temperature}\PY{p}{)}\PY{o}{/}\PY{n}{np}\PY{o}{.}\PY{n}{trapz}\PY{p}{(}\PY{n}{pulse}\PY{p}{)}
+            \PY{k}{return} \PY{n}{measured}
+        
+        \PY{c+c1}{\PYZsh{} Calculate magnetization that would be measured in Co and Co/Pt cases}
+        \PY{n}{Co\PYZus{}measured\PYZus{}magnetization} \PY{o}{=} \PY{n}{calc\PYZus{}integrated\PYZus{}pulse\PYZus{}magnetization}\PY{p}{(}\PY{n}{Co\PYZus{}pulse}\PY{p}{,} \PY{n}{Co\PYZus{}sample}\PY{o}{.}\PY{n}{history}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{m}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{Co\PYZus{}measured\PYZus{}magnetization}\PY{p}{)}
+        \PY{n}{Co\PYZus{}Pt\PYZus{}measured\PYZus{}magnetization} \PY{o}{=} \PY{n}{calc\PYZus{}integrated\PYZus{}pulse\PYZus{}magnetization}\PY{p}{(}\PY{n}{Co\PYZus{}pt\PYZus{}pulse}\PY{p}{,} \PY{n}{Co\PYZus{}Pt\PYZus{}sample}\PY{o}{.}\PY{n}{history}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{m}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{Co\PYZus{}Pt\PYZus{}measured\PYZus{}magnetization}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+0.9217446105712218
+0.7653202215957867
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{c+c1}{\PYZsh{} Make a summary figure for 2019 manuscript}
+        \PY{c+c1}{\PYZsh{}\PYZpc{} matplotlib auto}
+        \PY{n}{f}\PY{p}{,} \PY{n}{axs} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{n}{sharex}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mf}{3.37}\PY{p}{,} \PY{l+m+mf}{3.37}\PY{p}{)}\PY{p}{)}
+        \PY{n}{axs}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{times}\PY{o}{*}\PY{l+m+mf}{1E15}\PY{p}{,} \PY{n}{Co\PYZus{}pulse}\PY{o}{/}\PY{n}{np}\PY{o}{.}\PY{n}{amax}\PY{p}{(}\PY{n}{Co\PYZus{}pulse}\PY{p}{)}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{k}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Pulse}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{axs}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{times}\PY{o}{*}\PY{l+m+mf}{1E15}\PY{p}{,} \PY{n}{Co\PYZus{}sample}\PY{o}{.}\PY{n}{history}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{m}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}\PYZhy{}k}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Co M}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{axs}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{times}\PY{o}{*}\PY{l+m+mf}{1E15}\PY{p}{,} \PY{n}{Co\PYZus{}Pt\PYZus{}sample}\PY{o}{.}\PY{n}{history}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{m}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{:k}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Co/Pt M}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{axs}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{n}{loc}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{lower center}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{frameon}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+        \PY{n}{axs}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{set\PYZus{}xlim}\PY{p}{(}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{75}\PY{p}{,} \PY{l+m+mi}{75}\PY{p}{)}\PY{p}{)}
+        \PY{n}{axs}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{set\PYZus{}xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Time (fs)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{axs}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{set\PYZus{}ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Magnitude (a.u.)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{c+c1}{\PYZsh{}plt.gca().set\PYZus{}ylim((\PYZhy{}0.2, 1.4))}
+        \PY{c+c1}{\PYZsh{}plt.savefig(\PYZsq{}2019\PYZus{}06\PYZus{}23\PYZus{}simulated\PYZus{}demag.eps\PYZsq{}, dpi=600)}
+        \PY{c+c1}{\PYZsh{}plt.savefig(\PYZsq{}2019\PYZus{}06\PYZus{}23\PYZus{}simulated\PYZus{}demag.jpg\PYZsq{}, dpi=600)}
+        
+        \PY{n}{axs}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{times}\PY{o}{*}\PY{l+m+mf}{1E15}\PY{p}{,} \PY{n}{Co\PYZus{}sample}\PY{o}{.}\PY{n}{history}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Te}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}\PYZhy{}k}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Co T\PYZdl{}\PYZus{}e\PYZdl{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{axs}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{times}\PY{o}{*}\PY{l+m+mf}{1E15}\PY{p}{,} \PY{n}{Co\PYZus{}Pt\PYZus{}sample}\PY{o}{.}\PY{n}{history}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Te}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{:k}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Co/Pt T\PYZdl{}\PYZus{}e\PYZdl{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{axs}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{n}{loc}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{upper left}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{frameon}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+        \PY{n}{axs}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{set\PYZus{}ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Temperature (K)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{Co\PYZus{}averaged\PYZus{}Te} \PY{o}{=} \PY{n}{calc\PYZus{}integrated\PYZus{}pulse\PYZus{}temperature}\PY{p}{(}\PY{n}{Co\PYZus{}pulse}\PY{p}{,} \PY{n}{Co\PYZus{}sample}\PY{o}{.}\PY{n}{history}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Te}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{Co\PYZus{}averaged\PYZus{}Te}\PY{p}{)}
+        \PY{n}{Co\PYZus{}Pt\PYZus{}averaged\PYZus{}Te} \PY{o}{=} \PY{n}{calc\PYZus{}integrated\PYZus{}pulse\PYZus{}temperature}\PY{p}{(}\PY{n}{Co\PYZus{}pt\PYZus{}pulse}\PY{p}{,} \PY{n}{Co\PYZus{}Pt\PYZus{}sample}\PY{o}{.}\PY{n}{history}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Te}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{Co\PYZus{}Pt\PYZus{}averaged\PYZus{}Te}\PY{p}{)}
+        
+        \PY{n}{axs}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{text}\PY{p}{(}\PY{l+m+mf}{0.9}\PY{p}{,} \PY{l+m+mf}{0.85}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{A}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{transform}\PY{o}{=}\PY{n}{axs}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{transAxes}\PY{p}{)}
+        \PY{n}{axs}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{text}\PY{p}{(}\PY{l+m+mf}{0.9}\PY{p}{,} \PY{l+m+mf}{0.7}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{B}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{transform}\PY{o}{=}\PY{n}{axs}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{transAxes}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{tight\PYZus{}layout}\PY{p}{(}\PY{n}{h\PYZus{}pad}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{savefig}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{2019\PYZus{}07\PYZus{}05\PYZus{}simulated\PYZus{}demag.eps}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{dpi}\PY{o}{=}\PY{l+m+mi}{600}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{savefig}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{../visualize/figure\PYZus{}s4.eps}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{dpi}\PY{o}{=}\PY{l+m+mi}{600}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{savefig}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{../visualize/figure\PYZus{}s4.jpg}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{dpi}\PY{o}{=}\PY{l+m+mi}{600}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{savefig}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{2019\PYZus{}07\PYZus{}05\PYZus{}simulated\PYZus{}demag.jpg}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{dpi}\PY{o}{=}\PY{l+m+mi}{600}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+2343.8540554475367
+2087.7056974449133
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/Users/dhigley/anaconda3/lib/python3.6/site-packages/matplotlib/font\_manager.py:1328: UserWarning: findfont: Font family ['Times'] not found. Falling back to DejaVu Sans
+  (prop.get\_family(), self.defaultFamily[fontext]))
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_9_2.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{c+c1}{\PYZsh{} Save source data}
+        \PY{n}{source\PYZus{}data} \PY{o}{=} \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{time (fs)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{times}\PY{o}{*}\PY{l+m+mf}{1E15}\PY{p}{,}
+                       \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pulse}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{Co\PYZus{}pulse}\PY{o}{/}\PY{n}{np}\PY{o}{.}\PY{n}{amax}\PY{p}{(}\PY{n}{Co\PYZus{}pulse}\PY{p}{)}\PY{p}{,}
+                       \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Co M}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{Co\PYZus{}sample}\PY{o}{.}\PY{n}{history}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{m}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}
+                       \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Co/Pt M}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{Co\PYZus{}Pt\PYZus{}sample}\PY{o}{.}\PY{n}{history}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{m}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}
+                       \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Co Te (K)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{Co\PYZus{}sample}\PY{o}{.}\PY{n}{history}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Te}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}
+                       \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Co/Pt Te (K)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{Co\PYZus{}Pt\PYZus{}sample}\PY{o}{.}\PY{n}{history}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Te}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{\PYZcb{}}
+        
+        \PY{k+kn}{import} \PY{n+nn}{pickle}
+        \PY{n}{pickle\PYZus{}on} \PY{o}{=} \PY{n+nb}{open}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{../../data/demag\PYZus{}simulation.p}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{wb}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{pickle}\PY{o}{.}\PY{n}{dump}\PY{p}{(}\PY{n}{source\PYZus{}data}\PY{p}{,} \PY{n}{pickle\PYZus{}on}\PY{p}{)}
+        \PY{n}{pickle\PYZus{}on}\PY{o}{.}\PY{n}{close}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \subsection{Useful references:}\label{useful-references}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  B. Koopmans, G. Malinowski, F. Dalla Longa, D. Steiauf, M. F¨ahnle, T.
+  Roth, M. Cinchetti, and M. Aeschlimann, ``Explaining the paradoxical
+  diversity of ultrafast laser-induced demagnetization,'' Nature
+  Materials, vol. 9, no. 3, p. 259, 2010.
+\item
+  K. Kuiper, T. Roth, A. Schellekens, O. Schmitt, B. Koopmans, M.
+  Cinchetti, and M. Aeschlimann, ``Spin-orbit enhanced demagnetization
+  rate in Co/Pt-multilayers,'' Applied Physics Letters, vol. 105, no.
+  20, p. 202402, 2014.
+\item
+  N. Bergeard et al., "Hot-electron-induced ultrafast demagnetization in
+  Co/Pt multilayers", PRL (2016)
+\end{enumerate}
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
