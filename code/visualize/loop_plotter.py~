@@ -1,0 +1,84 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+Created on Sun Jun 16 18:49:31 2019
+
+@author: dhigley
+
+Make a plot of the hysteresis loop we recorded at ALS
+"""
+
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+
+#import set_plot_params
+#set_plot_params.init_paper_small()
+
+def run():
+    data = get_data()
+    data = process_data(data)
+    plot_hysteresis_loop(data)
+
+def get_data():
+    data = np.genfromtxt('../../data/synchrotron/TrajScan30797.txt', skip_header=11)
+    data = pd.DataFrame.from_dict({'polarization': data[:, 3],
+                                   'H_x': data[:, 4],
+                                   'I0 Es': data[:, 5],
+                                   'EY': data[:, 6],
+                                   'I0 BL': data[:, 7],
+                                   'LY': data[:, 8],
+                                   'FY': data[:, 9]})
+    data.plot(subplots=True)
+    return data
+    
+def calculate_xmcd(data):
+    
+    def get_xas(bin_var, I0, I1):
+        unique_bin_var_values = np.sort(np.array(list(set(bin_var))))
+        xas = []
+        for current_bin in unique_bin_var_values:
+            current_I0 = np.average(I0[bin_var == current_bin])
+            current_I1 = np.average(I1[bin_var == current_bin])
+            current_xas = current_I1/current_I0
+            xas.append(current_xas)
+        return {'x': unique_bin_var_values,
+                'y': np.array(xas)}
+        
+    positive_data = data[data['polarization'] > 0]
+    negative_data = data[data['polarization'] < 0]
+    positive_xas = get_xas(positive_data['H_x'], positive_data['I0 Es'],
+                           positive_data['EY'])
+    negative_xas = get_xas(negative_data['H_x'], negative_data['I0 Es'],
+                           negative_data['EY'])
+    xmcd = {'x': positive_xas['x'],
+            'y': positive_xas['y']-negative_xas['y']}
+    return xmcd
+
+def process_data(data):
+    """Process data into a hysteresis loop
+    """
+    field_diff = np.append([0], np.diff(data['H_x']))
+    increasing_xmcd = calculate_xmcd(data[(field_diff > 0)])
+    decreasing_xmcd = calculate_xmcd(data[(field_diff < 0)])
+    return {'increasing': increasing_xmcd,
+            'decreasing': decreasing_xmcd}
+    
+def plot_hysteresis_loop(data):
+    data = get_data()
+    data = process_data(data)
+    plt.figure(figsize=(3.37, 3.37))
+    plt.plot(data['increasing']['x'], data['increasing']['y'], 
+             label='Increasing\nApplied Field')
+    plt.plot(data['decreasing']['x'], data['decreasing']['y'],
+             label='Decreasing\nApplied Field')
+    plt.xlabel('Applied Magnetic Field (Tesla)')
+    plt.ylabel('XMCD (a.u.)')
+    plt.legend(loc='best')
+    plt.tight_layout()
+    plt.savefig('../plots/2019_07_05_hysteresis.eps', dpi=600)
+    plt.savefig('../plots/2019_07_05_hysteresis.pdf', dpi=600)
+    plt.savefig('../plots/2019_07_05_hysteresis.jpeg', dpi=600)
+
+def format_hysteresis_loop():
+    pass
