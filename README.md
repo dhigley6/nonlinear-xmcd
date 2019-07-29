@@ -1,5 +1,7 @@
 # nonlinear-xmcd
-Data analysis and data for manuscript titled "Femtosecond X-ray induced changes of the electronic and magnetic response of solids from electron redistribution" by D. J. Higley and others. This analysis was tested with python 3.6.5.
+Data analysis code and data for manuscript titled "Femtosecond X-ray induced changes of the electronic and magnetic response of solids from electron redistribution" by D. J. Higley and others. This analysis was tested with python 3.6.5.
+
+The data analysis performed by the notebooks in this repository uses 'preprocessed' versions of the data recorded at LCLS. These 'preprocessed' data files save only the important quantities for each X-ray shot. Thus, the 'preprocessed' data files are much smaller than the raw data files. The 'preprocessed' data files are in the /data/preprocessed directory.
 
 ## Installation
 
