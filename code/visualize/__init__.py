@@ -4,3 +4,4 @@ import visualize.quant_plot
 import visualize.damage_plot
 import visualize.loop_plotter
 import visualize.raw_data_plot
+import visualize.set_plot_params

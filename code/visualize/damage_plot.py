@@ -26,7 +26,7 @@ def make_plot():
         axs[0].plot(spec['minus']['phot'], spec['minus']['spec'], label=label)
         axs[1].plot(spec['plus']['phot'], spec['plus']['spec'])
     plt.gcf().legend(loc=7, title='Maximum Previous\nFluence',
-                     frameon=True)
+                     frameon=False)
     _format_damage(axs)
     fig_path = os.path.join(os.path.dirname(__file__), 'figure_s3.eps')
     plt.savefig(fig_path, dpi=600)
@@ -37,7 +37,7 @@ def _format_damage(axs):
     axs[0].set_xlabel(' ')
     axs[1].set_xlabel(' ')
     plt.gcf().text(0.41, 0.04, 'Photon Energy (eV)', ha='center')
-    axs[0].set_ylabel('Intensity')
+    axs[0].set_ylabel('Intensity (a.u.)')
     axs[0].set_xlim([773.5, 782])
     axs[0].text(0.1, 0.9, 'A', fontsize=10, weight='bold',
                 horizontalalignment='center', transform=axs[0].transAxes)

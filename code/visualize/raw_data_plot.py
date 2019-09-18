@@ -101,9 +101,9 @@ def format_plot(axs, mcp_waveform, andor_waveform):
     axs[0, 0].set_ylabel('Voltage (V)')
     axs[0, 1].set_xlabel('Pixel')
     axs[0, 1].set_ylabel('Counts/10$^3$')
-    axs[1, 0].set_xlabel('I$_0$ (a.u.)')
-    axs[1, 0].set_ylabel('I$_1$ (a.u.)')
-    axs[1, 1].set_ylabel('Intensity')
+    axs[1, 0].set_xlabel('$I_0$ (a.u.)')
+    axs[1, 0].set_ylabel('$I_1$ (a.u.)')
+    axs[1, 1].set_ylabel('Intensity (a.u.)')
     axs[1, 1].set_xlabel('Photon Energy (eV)')
     axs[1, 1].set_xlim((745, 840))
     axs[1, 1].set_xlim((773.5, 782))
@@ -123,10 +123,12 @@ def format_plot(axs, mcp_waveform, andor_waveform):
                        arrowprops=dict(facecolor='black', arrowstyle='->'))
     axs[1, 1].annotate('Cal.\nRegion', xy=(773.75, 0.8), xytext=(774.75, 1),
                        horizontalalignment='left',
-                       arrowprops=dict(facecolor='black', arrowstyle='->'))
+                       arrowprops=dict(facecolor='black', arrowstyle='->'),
+                       fontsize=7)
     axs[1, 1].annotate('Cal.\nRegion', xy=(781.75, 0.35), xytext=(780, 0.4),
                        horizontalalignment='right',
-                       arrowprops=dict(facecolor='black', arrowstyle='->'))
+                       arrowprops=dict(facecolor='black', arrowstyle='->'),
+                       fontsize=7)
     axs[1, 0].legend(loc='upper left', fontsize=7)
     axs[1, 1].set_ylim((-0.2, 1.25))
     axs[0, 0].text(0.9, 0.1, 'A', fontsize=10, weight='bold', horizontalalignment='center', transform=axs[0, 0].transAxes)
