@@ -136,6 +136,6 @@ def format_overall_plot(f, axs):
     big_ax.set_xticklabels([' '])
     big_ax.xaxis.set_label_coords(0.5, -0.065)
     big_fermi_ax = big_ax.twiny()
-    big_fermi_ax.set_xlabel(r'Photon Energy Above E$_{core\rightarrow Fermi}$ (eV)')
+    big_fermi_ax.set_xlabel(r'Photon Energy Above $E_{\mathrm{core\rightarrow Fermi}}$ (eV)')
     big_fermi_ax.set_xticks([0])
     big_fermi_ax.set_xticklabels([' '])
