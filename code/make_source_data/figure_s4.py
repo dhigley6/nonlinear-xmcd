@@ -1,38 +1,43 @@
-"""Save source data for Fig. S4
-Note that this relies on the results of notebook 'demag.ipynb'
-"""
-
 import numpy as np
 import matplotlib.pyplot as plt
-import pickle
 import xlsxwriter
-import os
 
-DEMAG_RESULTS_FILE = os.path.join(os.path.dirname(__file__), '../../data/demag_simulation.p')
+import abs_get_processed_data
 
 def get_and_save_source_data(workbook=None):
     source_data = get_source_data()
     save_source_data(source_data, workbook)
 
 def get_source_data():
-    pickle_out = open(DEMAG_RESULTS_FILE, 'rb')
-    source_data = pickle.load(pickle_out)
-    pickle_out.close()
+    specs = abs_get_processed_data.get_damage_specs()
+    source_data = {'0 to 11 mJ/cm^2 Photon Energy': specs[0]['minus']['phot'],
+                   '0 to 11 mJ/cm^2 Plus': specs[0]['plus']['spec'],
+                   '0 to 11 mJ/cm^2 Minus': specs[0]['minus']['spec'],
+                   '11 to 15 mJ/cm^2 Photon Energy': specs[1]['minus']['phot'],
+                   '11 to 15 mJ/cm^2 Plus': specs[1]['plus']['spec'],
+                   '11 to 15 mJ/cm^2 Minus': specs[1]['minus']['spec'],
+                   '15 to 19 mJ/cm^2 Photon Energy': specs[2]['minus']['phot'],
+                   '15 to 19 mJ/cm^2 Plus': specs[2]['plus']['spec'],
+                   '15 to 19 mJ/cm^2 Minus': specs[2]['minus']['spec'],
+                   '19 to 33 mJ/cm^2 Photon Energy': specs[3]['minus']['phot'],
+                   '19 to 33 mJ/cm^2 Plus': specs[3]['plus']['spec'],
+                   '19 to 33 mJ/cm^2 Minus': specs[3]['minus']['spec'],
+                   '33 to 132 mJ/cm^2 Photon Energy': specs[4]['minus']['phot'],
+                   '33 to 132 mJ/cm^2 Plus': specs[4]['plus']['spec'],
+                   '33 to 132 mJ/cm^2 Minus': specs[4]['minus']['spec']}
     return source_data
-
+    
 def save_source_data(source_data, workbook=None):
     if workbook is None:
         workbook = xlsxwriter.Workbook('fig_s4.xlsx')
-    fig_s4_sheet = workbook.add_worksheet('Supp. Fig. 4')
+    fig_s3_sheet = workbook.add_worksheet('Supp. Fig. 4')
     for ind, (header, data) in enumerate(source_data.items()):
-        fig_s4_sheet.write(0, ind, header)
-        fig_s4_sheet.write_column(1, ind, data)
-
+        fig_s3_sheet.write(0, ind, header)
+        fig_s3_sheet.write_column(1, ind, data)
+    
 def sanity_plot():
-    sd = get_source_data()
-    f, axs = plt.subplots(2, 1, sharex=True)
-    axs[0].plot(sd['time (fs)'], sd['pulse'])
-    axs[0].plot(sd['time (fs)'], sd['Co M'])
-    axs[0].plot(sd['time (fs)'], sd['Co/Pt M'])
-    axs[1].plot(sd['time (fs)'], sd['Co Te (K)'])
-    axs[1].plot(sd['time (fs)'], sd['Co/Pt Te (K)'])
+    specs = abs_get_processed_data.get_damage_specs()
+    f, axs = plt.subplots(1, 2, sharex=True)
+    for spec in specs:
+        axs[0].plot(spec['minus']['phot'], spec['minus']['spec'])
+        axs[1].plot(spec['minus']['phot'], spec['plus']['spec'])
